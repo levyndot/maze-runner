@@ -1,18 +1,64 @@
-.wall {
-
+#maze_container {
+    position: relative;
+    margin: 1em auto;
+    width: fit-content;
 }
-.ground {
-
+#maze {
+    position: relative;
+    background-color: #a7c53f;
+    background-image: url("../assets/ground.jpg");
+    background-size: 50px 50px;
+}
+#maze div {
+    display: flex;
+}
+.wall {
+    background-image: url("../assets/wall.jpg");
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+    position: relative;
 }
 .player {
-
+    background-image: url("../assets/player.png");
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+.door {
+    background-image: url("../assets/door.png");
+    background-size: contain;
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+.player-back {
+    background-position: 1px -7px;
+}
+.player-front {
+    background-position: -42px -7px;
+}
+.player-left {
+    background-position: -90px -7px;
+}
+.player-right {
+    background-position: -132px -7px;
 }
 .key {
-
-}
-.ground {
-
+    background-image: url("../assets/key.png");
+    position: relative;
+    background-size: contain;
+    width: 50px;
+    height: 50px;
 }
 .zombie {
-
+    background-image: url("../assets/zombie.png");
+    width: 50px;
+    height: 50px;
+}
+.zombie-left {
+    background-position: -131px -7px;
+}
+.zombie-right {
+    background-position: -84px -7px;
 }
