@@ -32,48 +32,49 @@ class Maze{
                         this.map[this.player.position[Y]][this.player.position[X] + 1] === DOOR) {
                         console.log("nn mon chef")
                     } else {
+                        if (this.map[this.player.position[Y]][this.player.position[X]+1] === KEY) {
+                            this.player.hasKey = true;
+                            console.log("bravo t'as la clé");
+                        }
                         console.log("tu peux passer")
                         this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
                         this.map[this.player.position[Y]][this.player.position[X] + 1] = PLAYER;
                         this.player.position[X] = this.player.position[X] + 1;
                         this.player.direction = [1, 0];
                         this.drawMap();
-                        if (this.map[this.player.position[Y]][this.player.position[X]+1] === KEY) {
-                            this.player.hasKey = true;
-                            console.log("bravo t'as la clé");
-                        }
                     }
                 } else if (keyName === "ArrowDown") {
                     if (this.map[this.player.position[Y] + 1][this.player.position[X]] === WALL ||
                         this.map[this.player.position[Y] + 1][this.player.position[X]] === DOOR) {
                         console.log("nn mon chef")
                     } else {
+                        if (this.map[this.player.position[Y]+1][this.player.position[X]] === KEY) {
+                            this.player.hasKey = true;
+                            console.log("bravo t'as la clé");
+                        }
                         console.log("tu peux passer")
                         this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
                         this.map[this.player.position[Y] + 1][this.player.position[X]] = PLAYER;
                         this.player.position[Y] = this.player.position[Y] + 1;
                         this.player.direction = [0, 1];
                         this.drawMap();
-                        if (this.map[this.player.position[Y]+1][this.player.position[X]] === KEY) {
-                            this.player.hasKey = true;
-                            console.log("bravo t'as la clé");
-                        }
                     }
                 } else if (keyName === "ArrowUp") {
                     if (this.map[this.player.position[Y] - 1][this.player.position[X]] === WALL ||
                         this.map[this.player.position[Y] - 1][this.player.position[X]] === DOOR) {
                         console.log("nn mon chef")
                     } else {
+                        if (this.map[this.player.position[Y]-1][this.player.position[X]] === KEY) {
+                            this.player.hasKey = true;
+                            console.log("bravo t'as la clé");
+                        }
                         console.log("tu peux passer")
                         this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
                         this.map[this.player.position[Y] - 1][this.player.position[X]] = PLAYER;
                         this.player.position[Y] = this.player.position[Y] - 1;
                         this.player.direction = [0, -1];
                         this.drawMap();
-                        if (this.map[this.player.position[Y]-1][this.player.position[X]] === KEY) {
-                            this.player.hasKey = true;
-                            console.log("bravo t'as la clé");
-                        }
+
                     }
                 }
             },
