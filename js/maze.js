@@ -73,22 +73,24 @@ class Game {
             if (this.map[this.player.position[Y]-1][this.player.position[X]] === KEY) {
                 // Le joueur récupère la clé
                 this.player.hasKey = true;
-                console.log("bravo t'as la clé");
-            }
-            if(this.player.hasKey = true){
+                console.log("bravo t'as la clé");}
+            else if(this.player.hasKey === true);
+        {
+            DOOR.open();
+        } else {
+            console.log("Le joueur n'a pas la clé.");
+        }
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
             // La case en haut du joueur devient la nouvelle position du joueur dans le labyrinth
             this.map[this.player.position[Y] - 1][this.player.position[X]] = PLAYER;
-            this.map[this.player.position[Y]][this.player.position[X]] = DOOR;
             this.player.moveUp();
             this.drawMap();
         } else {
             console.log("Stop ! C'est pas possible d'aller par là");
         }
     }
-
     /**
      * Fait bouger le jouer en haut si c'est possible
      */
@@ -102,13 +104,11 @@ class Game {
                 this.player.hasKey = true;
                 console.log("bravo t'as la clé");
             }
-            if(this.player.hasKey = true)
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
             // La case en bas du joueur devient la nouvelle position du joueur dans le labyrinth
             this.map[this.player.position[Y] + 1][this.player.position[X]] = PLAYER;
-            this.map[this.player.position[Y]][this.player.position[X]] = DOOR;
             this.player.moveDown();
             this.drawMap();
         } else {
@@ -131,14 +131,12 @@ class Game {
                 this.player.hasKey = true;
                 console.log("bravo t'as la clé");
             }
-            if(this.player.hasKey = true)
-                    console.log("La voie est libre");
+            console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
             // La case a gauche du joueur devient la nouvelle position du joueur dans le labyrinth
             this.map[this.player.position[Y]][this.player.position[X] - 1] = PLAYER;
-                this.map[this.player.position[Y]][this.player.position[X]] = DOOR;
-                this.player.moveLeft();
+            this.player.moveLeft();
             this.drawMap();
         } else {
             console.log("Stop ! C'est pas possible d'aller par là");
@@ -158,13 +156,11 @@ class Game {
                 this.player.hasKey = true;
                 console.log("bravo t'as la clé");
             }
-            if(this.player.hasKey = true)
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
             // La case a droite du joueur devient la nouvelle position du joueur dans le labyrinth
             this.map[this.player.position[Y]][this.player.position[X] + 1] = PLAYER;
-            this.map[this.player.position[Y]][this.player.position[X]] = DOOR;
             this.player.moveRight();
             this.drawMap();
         } else {
