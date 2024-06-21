@@ -3,7 +3,6 @@ class Game {
         this.map = MAZE;
         this.player = new Player();
     }
-
     drawMap() {
         // On récupère la div avec l'id "maze"
         let divMaze = document.getElementById("maze");
@@ -66,17 +65,23 @@ class Game {
         // Si la case en haut du joueur n'est pas un MUR OU une PORTE
         if (this.map[this.player.position[Y] - 1][this.player.position[X]] !== WALL &&
             this.map[this.player.position[Y] - 1][this.player.position[X]] !== DOOR) {
+            if(this.player.hadKey = true)
+                this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
+                this.map[this.player.position[Y] - 1][this.player.position[X]] = PLAYER;}
+                this.map[this.player.position[Y]- 1]
             // Si la case en haut du joueur est la clé
             if (this.map[this.player.position[Y]-1][this.player.position[X]] === KEY) {
                 // Le joueur récupère la clé
                 this.player.hasKey = true;
                 console.log("bravo t'as la clé");
             }
+            if(this.player.hasKey = true){
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
             // La case en haut du joueur devient la nouvelle position du joueur dans le labyrinth
             this.map[this.player.position[Y] - 1][this.player.position[X]] = PLAYER;
+            this.map[this.player.position[Y]][this.player.position[X]] = DOOR;
             this.player.moveUp();
             this.drawMap();
         } else {
@@ -87,7 +92,7 @@ class Game {
     /**
      * Fait bouger le jouer en haut si c'est possible
      */
-    movePlayerDown() {
+    movePlayerDown(){
         // Si la case en bas du joueur n'est pas un MUR OU une PORTE
         if (this.map[this.player.position[Y] + 1][this.player.position[X]] !== WALL &&
             this.map[this.player.position[Y] + 1][this.player.position[X]] !== DOOR) {
@@ -97,11 +102,13 @@ class Game {
                 this.player.hasKey = true;
                 console.log("bravo t'as la clé");
             }
+            if(this.player.hasKey = true)
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
             // La case en bas du joueur devient la nouvelle position du joueur dans le labyrinth
             this.map[this.player.position[Y] + 1][this.player.position[X]] = PLAYER;
+            this.map[this.player.position[Y]][this.player.position[X]] = DOOR;
             this.player.moveDown();
             this.drawMap();
         } else {
@@ -115,19 +122,23 @@ class Game {
     movePlayerLeft() {
         // Si la case à gauche du joueur n'est pas un MUR OU une PORTE
         if (this.map[this.player.position[Y]][this.player.position[X] - 1] !== WALL &&
-            this.map[this.player.position[Y]][this.player.position[X] - 1] !== DOOR) {
+            this.map[this.player.position[Y]][this.player.position[X] - 1] !== DOOR)
+ 
+            {
             // Si la case à gauche du joueur est la clé
             if (this.map[this.player.position[Y]][this.player.position[X]-1] === KEY) {
                 // Le joueur récupère la clé
                 this.player.hasKey = true;
                 console.log("bravo t'as la clé");
             }
-            console.log("La voie est libre");
+            if(this.player.hasKey = true)
+                    console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
             // La case a gauche du joueur devient la nouvelle position du joueur dans le labyrinth
             this.map[this.player.position[Y]][this.player.position[X] - 1] = PLAYER;
-            this.player.moveLeft();
+                this.map[this.player.position[Y]][this.player.position[X]] = DOOR;
+                this.player.moveLeft();
             this.drawMap();
         } else {
             console.log("Stop ! C'est pas possible d'aller par là");
@@ -147,11 +158,13 @@ class Game {
                 this.player.hasKey = true;
                 console.log("bravo t'as la clé");
             }
+            if(this.player.hasKey = true)
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
             // La case a droite du joueur devient la nouvelle position du joueur dans le labyrinth
             this.map[this.player.position[Y]][this.player.position[X] + 1] = PLAYER;
+            this.map[this.player.position[Y]][this.player.position[X]] = DOOR;
             this.player.moveRight();
             this.drawMap();
         } else {
