@@ -159,6 +159,9 @@ class Game {
             if (this.map[this.player.position[Y]][this.player.position[X]+1] === KEY) {
                 // Le joueur récupère la clé
                 this.player.hasKey = true;
+                // ajoute 1 au compteur de clé
+                this.player.nbKey += 1;
+
                 console.log("bravo t'as la clé");
             }
             console.log("La voie est libre");

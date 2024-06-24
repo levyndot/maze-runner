@@ -3,6 +3,7 @@ class Player {
         this.position = [0, 0];
         this.direction = [1, 0];
         this.hasKey = false;
+        this.nbKey = 0;
     };
 
     moveLeft() {
