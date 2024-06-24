@@ -59,12 +59,15 @@ class Game {
     }
 
     /**
-     * Fait bouger le jouer en bas si c'est possible
+     * Fait bouger le jouer en haut si c'est possible
      */
     movePlayerUp() {
         // Si la case en haut du joueur n'est pas un MUR OU une PORTE
         if (this.map[this.player.position[Y] - 1][this.player.position[X]] !== WALL &&
-            this.map[this.player.position[Y] - 1][this.player.position[X]] !== DOOR) {
+            this.map[this.player.position[Y] - 1][this.player.position[X]] !== DOOR ||
+            (this.map[this.player.position[Y] - 1][this.player.position[X]] === DOOR &&
+            this.player.hasKey === true))
+        {
             if (this.player.hasKey === true) {
                 this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
                 this.map[this.player.position[Y] - 1][this.player.position[X]] = PLAYER;
@@ -73,7 +76,7 @@ class Game {
             if (this.map[this.player.position[Y]-1][this.player.position[X]] === KEY) {
                 // Le joueur récupère la clé
                 this.player.hasKey = true;
-                console.log("bravo t'as la clé");
+                console.log("bravo t'as la clé")
             }
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
@@ -87,12 +90,15 @@ class Game {
         }
     }
     /**
-     * Fait bouger le jouer en haut si c'est possible
+     * Fait bouger le jouer en bas si c'est possible
      */
     movePlayerDown(){
         // Si la case en bas du joueur n'est pas un MUR OU une PORTE
         if (this.map[this.player.position[Y] + 1][this.player.position[X]] !== WALL &&
-            this.map[this.player.position[Y] + 1][this.player.position[X]] !== DOOR) {
+            this.map[this.player.position[Y] + 1][this.player.position[X]] !== DOOR ||
+        (this.map[this.player.position[Y] + 1][this.player.position[X]] === DOOR &&
+            this.player.hasKey === true))
+        {
             // Si la case en bas du joueur est la clé
             if (this.map[this.player.position[Y]+1][this.player.position[X]] === KEY) {
                 // Le joueur récupère la clé
@@ -117,7 +123,9 @@ class Game {
     movePlayerLeft() {
         // Si la case à gauche du joueur n'est pas un MUR OU une PORTE
         if (this.map[this.player.position[Y]][this.player.position[X] - 1] !== WALL &&
-            this.map[this.player.position[Y]][this.player.position[X] - 1] !== DOOR)
+            this.map[this.player.position[Y]][this.player.position[X] - 1] !== DOOR ||
+            (this.map[this.player.position[Y]][this.player.position[X] - 1] === DOOR &&
+                this.player.hasKey === true))
  
             {
             // Si la case à gauche du joueur est la clé
@@ -144,7 +152,9 @@ class Game {
     movePlayerRight() {
         // Si la case à droite du joueur n'est pas un MUR OU une PORTE
         if (this.map[this.player.position[Y]][this.player.position[X] + 1] !== WALL &&
-            this.map[this.player.position[Y]][this.player.position[X] + 1] !== DOOR) {
+            this.map[this.player.position[Y]][this.player.position[X] + 1] !== DOOR ||
+            (this.map[this.player.position[Y]][this.player.position[X] +1] === DOOR &&
+                this.player.hasKey === true)) {
             // Si la case à droite du joueur est la clé
             if (this.map[this.player.position[Y]][this.player.position[X]+1] === KEY) {
                 // Le joueur récupère la clé
