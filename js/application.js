@@ -25,4 +25,11 @@
         },
         false,
     );
+
+    window.setInterval(function(){
+        game.moveZombie();
+    }, 500);
+    window.setInterval(function(){
+        game.drawMap();
+    }, 100);
 })();
