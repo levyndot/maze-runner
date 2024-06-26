@@ -19,7 +19,7 @@ class Player {
         this.direction = [0, -1];
     }
     moveDown() {
-        this.position = [this.position[0] - 1, this.position[1] + 1];
+        this.position = [this.position[0], this.position[1] + 1];
         this.direction = [0, 1];
     }
 }

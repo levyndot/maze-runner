@@ -86,18 +86,22 @@ class Game {
             (this.map[this.player.position[Y] - 1][this.player.position[X]] === DOOR &&
             this.player.hasKey === true))
         {
-            if (this.player.hasKey === true) {
-                this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
-                this.map[this.player.position[Y] - 1][this.player.position[X]] = PLAYER;
-            }
             // Si la case en haut du joueur est la clé
             if (this.map[this.player.position[Y]-1][this.player.position[X]] === KEY) {
                 // Le joueur récupère la clé
                 this.player.hasKey = true;
                 this.player.nbKey += 1;
+                document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé")
             }
-            console.log("La voie est libre");
+            else if(this.map[this.player.position[Y]-1][this.player.position[X]] === DOOR) {
+                this.player.nbKey -= 1;
+                if(this.player.nbKey === 0){
+                    this.player.hasKey = false;
+                }
+                document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
+            }
+                console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
             // La case en haut du joueur devient la nouvelle position du joueur dans le labyrinth
@@ -122,8 +126,17 @@ class Game {
                 // Le joueur récupère la clé
                 this.player.hasKey = true;
                 this.player.nbKey += 1;
+                document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé");
             }
+        else if(this.map[this.player.position[Y]+1][this.player.position[X]] === DOOR) {
+            this.player.nbKey -= 1;
+            if(this.player.nbKey === 0){
+                this.player.hasKey = false;
+            }
+
+            document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
+        }
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
@@ -151,7 +164,12 @@ class Game {
                 // Le joueur récupère la clé
                 this.player.hasKey = true;
                 this.player.nbKey += 1;
+                document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé");
+            }
+            else if(this.map[this.player.position[Y]-1][this.player.position[X]] === DOOR) {
+                this.player.nbKey -= 1;
+                document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
             }
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
@@ -165,13 +183,13 @@ class Game {
     }
 
     /**
-     * Fait bouger le jouer a droit si c'est possible
+     * Fait bouger le joueur à droite si c'est possible
      */
     movePlayerRight() {
         // Si la case à droite du joueur n'est pas un MUR OU une PORTE
         if (this.map[this.player.position[Y]][this.player.position[X] + 1] !== WALL &&
             this.map[this.player.position[Y]][this.player.position[X] + 1] !== DOOR ||
-            (this.map[this.player.position[Y]][this.player.position[X] +1] === DOOR &&
+            (this.map[this.player.position[Y]][this.player.position[X] + 1] === DOOR &&
                 this.player.hasKey === true)) {
             // Si la case à droite du joueur est la clé
             if (this.map[this.player.position[Y]][this.player.position[X]+1] === KEY) {
@@ -179,8 +197,12 @@ class Game {
                 this.player.hasKey = true;
                 // ajoute 1 au compteur de clé
                 this.player.nbKey += 1;
-
+                document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé");
+            }
+            else if(this.map[this.player.position[Y]][this.player.position[X] + 1] === DOOR) {
+                this.player.nbKey -= 1;
+                document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
             }
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
