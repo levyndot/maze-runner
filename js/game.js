@@ -3,6 +3,20 @@ class Game {
         this.map = MAZE;
         this.player = new Player();
         this.zombie = new Zombie();
+
+        // Init player and zombie position
+        // On parcourt la map et on dessine le labyrinth
+        this.map.forEach((line, indexLine) => {
+            line.forEach((cell, indexCell) => {
+                if (cell === PLAYER) {
+                    // On récupère la position du joueur
+                    this.player.position = [indexCell, indexLine];
+                } else if (cell === ZOMBIE) {
+                    // On récupère la position du zombie
+                    this.zombie.position = [indexCell, indexLine];
+                }
+            });
+        });
     }
     drawMap() {
         // On récupère la div avec l'id "maze"
@@ -12,10 +26,10 @@ class Game {
             divMaze.removeChild(divMaze.lastChild);
         }
         // On parcourt la map et on dessine le labyrinth
-        this.map.forEach((line, indexLine) => {
+        this.map.forEach((line) => {
             // On créé la div ligne
             let divLine = document.createElement("div");
-            line.forEach((cell, indexCell) => {
+            line.forEach((cell) => {
                 // On créé la div case
                 let divCell = document.createElement("div");
                 if (cell === FLOOR) {
@@ -25,8 +39,6 @@ class Game {
                     // On ajoute la classe "wall" a la div pour afficher le mur a l'écran
                     divCell.classList.add("wall");
                 } else if (cell === PLAYER) {
-                    // On récupère la position du joueur
-                    this.player.position = [indexCell, indexLine];
                     // On ajoute la classe "player" a la div pour afficher le joueur a l'écran
                     divCell.classList.add("player");
                     // On ajoute la classe "player-xxxx" pour que le dessin du joueur soit bien orienté
@@ -48,11 +60,13 @@ class Game {
                 } else if (cell === ZOMBIE) {
                     // On ajoute la classe "zombie" a la div pour afficher le zombie a l'écran
                     divCell.classList.add("zombie");
-                    // On ajoute la classe "zombie-right" a la div pour que le zombie soit de côté droite
-                    divCell.classList.add("zombie-right");
-                    // On récupère la position du zombie
-                    this.zombie.position = [indexCell, indexLine];
-
+                    if (this.zombie.direction === 1) {
+                        // On ajoute la classe "zombie-right" a la div pour que le zombie soit de côté droite
+                        divCell.classList.add("zombie-right");
+                    } else if (this.zombie.direction === 0) {
+                        // On ajoute la classe "zombie-right" a la div pour que le zombie soit de côté droite
+                        divCell.classList.add("zombie-left");
+                    }
                 }
                 // On ajoute la div case a la div ligne
                 divLine.appendChild(divCell);
@@ -181,45 +195,37 @@ class Game {
     }
 
     moveZombie() {
-
         let moved = false;
-
         while (!moved) {
-            const moveTo = Math.round(4 * Math.random());
-            // La case actuelle du zombie devient un sol
-            this.map[this.zombie.position[Y]][this.zombie.position[X]] = FLOOR;
-            switch (moveTo) {
-                case RIGHT:
-                    if (this.map[this.zombie.position[Y]][this.zombie.position[X] + 1] === FLOOR) {
-                        // On bouge le zombie a droite
-                        this.zombie.moveRight();
-                        moved = true;
-                    }
-                    break;
-                case LEFT:
-                    if (this.map[this.zombie.position[Y]][this.zombie.position[X] - 1] === FLOOR) {
-                        // On bouge le zombie a gauche
-                        this.zombie.moveLeft();
-                        moved = true;
-                    }
-                    break;
-                case DOWN:
-                    if(this.map[this.zombie.position[Y] + 1][this.zombie.position[X]] === FLOOR) {
-                        // On bouge le zombie en bas
-                        this.zombie.moveDown();
-                        moved = true;
-                    }
-                    break;
-                case UP:
-                    if(this.map[this.zombie.position[Y] - 1][this.zombie.position[X]] === FLOOR) {
-                        // On bouge le zombie en haut
-                        this.zombie.moveUp();
-                        moved = true;
-                    }
-                    break;
-                default:
-                    break;
+            const moveTo = Math.round(3 * Math.random());
+            if (moveTo !== this.zombie.forbidenDirection) {
+
+                // La case actuelle du zombie devient un sol
+                this.map[this.zombie.position[Y]][this.zombie.position[X]] = FLOOR;
+
+                if(moveTo === RIGHT && this.zombie.canGoTo(this.map, RIGHT)) {
+                    // On bouge le zombie a droite
+                    this.zombie.moveRight();
+                    this.zombie.forbidenDirection = LEFT;
+                    moved = true;
+                } else if(moveTo === LEFT && this.zombie.canGoTo(this.map, LEFT)) {
+                    // On bouge le zombie a gauche
+                    this.zombie.moveLeft();
+                    this.zombie.forbidenDirection = RIGHT;
+                    moved = true;
+                } else if(moveTo === DOWN && this.zombie.canGoTo(this.map, DOWN)) {
+                    // On bouge le zombie en bas
+                    this.zombie.moveDown();
+                    this.zombie.forbidenDirection = UP;
+                    moved = true;
+                } else if(moveTo === UP && this.zombie.canGoTo(this.map, UP)) {
+                    // On bouge le zombie en haut
+                    this.zombie.moveUp();
+                    this.zombie.forbidenDirection = DOWN;
+                    moved = true;
+                }
             }
+
             // La case a droite du zombie devient la nouvelle position du zombie dans le labyrinth
             this.map[this.zombie.position[Y]][this.zombie.position[X]] = ZOMBIE;
         }

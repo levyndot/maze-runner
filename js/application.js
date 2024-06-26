@@ -1,4 +1,8 @@
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
+    let stop = false;
+    document.getElementById("stop").addEventListener("click", (event) => {
+        stop = true;
+    })
     const game = new Game();
 
     // Dessine graphiquement le labyrinth
@@ -27,9 +31,10 @@
     );
 
     window.setInterval(function(){
-        game.moveZombie();
+        if (!stop)
+            game.moveZombie();
     }, 500);
     window.setInterval(function(){
         game.drawMap();
-    }, 100);
-})();
+    }, 10);
+});
