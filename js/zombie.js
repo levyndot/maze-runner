@@ -4,7 +4,6 @@ class Zombie {
         this.direction = 0;
         this.forbidenDirection = -1;
     };
-
     moveLeft() {
         this.position = [this.position[0] - 1, this.position[1]];
         this.direction = 0;
@@ -24,10 +23,14 @@ class Zombie {
 
     getPossibleDirections(map) {
         const possibilities = [
-            map[this.position[Y] - 1][this.position[X]] === FLOOR,
-            map[this.position[Y] + 1][this.position[X]] === FLOOR,
-            map[this.position[Y]][this.position[X] + 1] === FLOOR,
-            map[this.position[Y]][this.position[X] - 1] === FLOOR
+            map[this.position[Y] - 1][this.position[X]] === FLOOR ||
+            map[this.position[Y] - 1][this.position[X]] === PLAYER,
+            map[this.position[Y] + 1][this.position[X]] === FLOOR ||
+            map[this.position[Y] + 1][this.position[X]] === PLAYER,
+            map[this.position[Y]][this.position[X] + 1] === FLOOR ||
+            map[this.position[Y]][this.position[X] + 1] === PLAYER,
+            map[this.position[Y]][this.position[X] - 1] === FLOOR ||
+            map[this.position[Y]][this.position[X] - 1] === PLAYER
         ];
 
         let availableDirections = [];

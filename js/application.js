@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         false,
     );
-
     window.setInterval(function(){
         if (!stop)
             game.moveZombie();

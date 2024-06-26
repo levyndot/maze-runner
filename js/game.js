@@ -1,9 +1,9 @@
 class Game {
     constructor() {
+        this.start = true
         this.map = MAZE;
         this.player = new Player();
         this.zombie = new Zombie();
-
         // Init player and zombie position
         // On parcourt la map et on dessine le labyrinth
         this.map.forEach((line, indexLine) => {
@@ -75,7 +75,6 @@ class Game {
             divMaze.appendChild(divLine);
         });
     }
-
     /**
      * Fait bouger le jouer en haut si c'est possible
      */
@@ -93,6 +92,10 @@ class Game {
                 this.player.nbKey += 1;
                 document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé")
+            }
+            else if(this.map[this.player.position[Y]-1][this.player.position[X]] === ZOMBIE){
+                console.log("t'es mort");
+                this.start = false;
             }
             else if(this.map[this.player.position[Y]-1][this.player.position[X]] === DOOR) {
                 this.player.nbKey -= 1;
@@ -129,14 +132,18 @@ class Game {
                 document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé");
             }
-        else if(this.map[this.player.position[Y]+1][this.player.position[X]] === DOOR) {
-            this.player.nbKey -= 1;
-            if(this.player.nbKey === 0){
-                this.player.hasKey = false;
+            else if(this.map[this.player.position[Y]+1][this.player.position[X]] === ZOMBIE){
+                console.log("t'es mort");
+                this.start = false;
             }
+            else if(this.map[this.player.position[Y]+1][this.player.position[X]] === DOOR) {
+                this.player.nbKey -= 1;
 
-            document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
-        }
+                if(this.player.nbKey === 0){
+                    this.player.hasKey = false;
+                }
+                document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
+            }
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
@@ -167,10 +174,17 @@ class Game {
                 document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé");
             }
-            else if(this.map[this.player.position[Y]-1][this.player.position[X]] === DOOR) {
+            else if(this.map[this.player.position[Y]-1][this.player.position[X]-1] === ZOMBIE){
+                console.log("t'es mort");
+                this.start = false;
+            }
+            else if(this.map[this.player.position[Y]][this.player.position[X]-1] === DOOR) {
                 this.player.nbKey -= 1;
                 document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
             }
+                if(this.player.nbKey === 0){
+                    this.player.hasKey = false;
+                }
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
             this.map[this.player.position[Y]][this.player.position[X]] = FLOOR;
@@ -200,9 +214,16 @@ class Game {
                 document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé");
             }
-            else if(this.map[this.player.position[Y]][this.player.position[X] + 1] === DOOR) {
+            else if(this.map[this.player.position[Y]][this.player.position[X]+1] === ZOMBIE){
+                console.log("t'es mort");
+                this.start = false;
+            }
+            else if(this.map[this.player.position[Y]][this.player.position[X]+1] === DOOR) {
                 this.player.nbKey -= 1;
                 document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
+            }
+            if(this.player.nbKey === 0){
+                this.player.hasKey = false;
             }
             console.log("La voie est libre");
             // La case actuelle du joueur devient un sol
