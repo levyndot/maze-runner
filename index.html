@@ -7,15 +7,13 @@
     <link href="css/styles.css" rel="stylesheet"/>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Maze Runner</a>
         <div class="collapse navbar-collapse" id="navbarText">
             <div class="navbar-nav me-auto mb-2 mb-lg-0"></div>
             <span class="navbar-text">
-                <button type="button" id="stopZombie" class="btn btn-primary">
-                    Start/Stop zombie
-                </button>
             </span>
         </div>
     </div>
@@ -24,10 +22,24 @@
 <main class="d-flex justify-content-center">
     <div class="card m-5">
         <div class="card-body">
-            <div id="keysCounter"></div>
+            <div id="gameover" class="gameover invisible d-flex flex-column justify-content-center">
+                <div class="d-flex flex-grow-1"></div>
+                <div class="d-flex flex-column flex-grow-1 justify-content-center align-items-center gameover">
+                    <div class="text">GAME OVER</div>
+                    <div class="mt-10">
+                    <button type="button" class="btn btn-light btn-lg" id="newGame">New game</button>
+                    </div>
+                </div>
+                <div class="p-2 bd-highlight flex-grow-1"></div>
+            </div>
+            <div>
+                <span>Keys : </span>
+                <div id="keysCounter"></div>
+            </div>
             <div id="maze_container">
                 <div id="maze"></div>
             </div>
+
         </div>
     </div>
 </main>

@@ -1,13 +1,8 @@
-#maze_container {
-    position: relative;
-    margin: 1em auto;
-    width: fit-content;
-}
+@import url("https://fonts.googleapis.com/css2?family=Trade+Winds&display=swap");
+
 #maze {
-    position: relative;
-    background-color: #a7c53f;
     background-image: url("../assets/ground.jpg");
-    background-size: 50px 50px;
+    background-size: 100px 100px;
 }
 #maze div {
     display: flex;
@@ -19,10 +14,14 @@
     height: 50px;
     position: relative;
 }
+
 .floor{
     width: 50px;
     height: 50px;
     position: relative;
+}
+.wall + .floor, .wall + .zombie, .wall + .key, .wall + .player {
+    box-shadow: inset black 30px 0 10px -23px;
 }
 .player {
     background-image: url("../assets/player.png");
@@ -70,4 +69,27 @@
 
 #keysCounter {
     height: 50px;
+}
+
+.gameover {
+    background-image: url("../assets/blood.gif");
+    background-color: #790707;
+    position: absolute;
+    background-size: contain;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.text {
+    text-align: center;
+    font-family: "Trade Winds", Arial, Helvetica, serif;
+    font-size: 5rem;
+    font-weight: bold;
+    display: flex;
+    /*mix-blend-mode: overlay;*/
+    opacity: 0.95;
+    text-shadow: -2px -2px 2px #0000006b;
+    -webkit-text-stroke: 2.25vmin #0000004d;
+    -webkit-text-fill-color: #000000;
 }

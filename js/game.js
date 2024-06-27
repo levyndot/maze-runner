@@ -8,8 +8,7 @@ class Game {
         this.keys = [
             [3, 13],
             [19, 17],
-            [7, 15],
-            [6, 15],
+            [1, 15],
         ];
         this.doors = [
             [8, 15],
@@ -25,9 +24,13 @@ class Game {
         this.drawMapInterval = window.setInterval(() => {
             this.drawMap();
         }, 10);
+        document.getElementById("gameover").classList.add("invisible");
+        document.getElementById("newGame").addEventListener("click", () => {
+            this.initialisation();
+        });
     }
 
-    stopGame() {
+    gameOver() {
         window.clearInterval(this.drawMapInterval);
         window.clearInterval(this.moveZombieInterval);
     }
@@ -154,9 +157,9 @@ class Game {
         if(this.player.position[X] === this.zombie.position[X] && this.player.position[Y] === this.zombie.position[Y]) {
             // si le joueur touche le zombie alors la console affiche "t'es mort"
             console.log("t'es mort");
-            this.stopGame();
-            alert("Game Over You Lost");
-            this.initialisation();
+            this.gameOver();
+            document.getElementById("gameover").classList.remove("invisible");
+            // this.initialisation();
         }
     }
 
