@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     let stop = false;
-    document.getElementById("stop").addEventListener("click", (event) => {
-        stop = true;
-    })
+    document.getElementById("stopZombie").addEventListener("click", (event) => {
+        stop = !stop;
+    });
+
     const game = new Game();
 
     // Dessine graphiquement le labyrinth
