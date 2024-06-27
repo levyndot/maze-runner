@@ -67,3 +67,7 @@
 .zombie-right {
     background-position: -84px -7px;
 }
+
+#keysCounter {
+    height: 50px;
+}

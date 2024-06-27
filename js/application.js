@@ -14,13 +14,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const keyName = event.key;
 
             if (keyName === "ArrowLeft") { // Si c'est la touche directionnelle "flèche de gauche"
-                game.movePlayerLeft();
+                game.movePlayer(DIR_LEFT);
             } else if (keyName === "ArrowRight") { // Si c'est la touche directionnelle "flèche de droite"
-                game.movePlayerRight();
+                game.movePlayer(DIR_RIGHT);
             } else if (keyName === "ArrowDown") { // Si c'est la touche directionnelle "flèche du bas"
-                game.movePlayerDown();
+                game.movePlayer(DIR_DOWN);
             } else if (keyName === "ArrowUp") { // Si c'est la touche directionnelle "flèche de haut"
-                game.movePlayerUp()
+                game.movePlayer(DIR_UP)
             }
         },
         false,

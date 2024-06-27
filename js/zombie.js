@@ -1,8 +1,9 @@
 class Zombie {
-    constructor() {
-        this.position = [0, 0];
+    constructor(game) {
+        this.position = [12, 7];
         this.direction = 0;
         this.forbidenDirection = -1;
+        this.game = game;
     };
     moveLeft() {
         this.position = [this.position[0] - 1, this.position[1]];
@@ -21,16 +22,12 @@ class Zombie {
         this.direction = 0;
     }
 
-    getPossibleDirections(map) {
+    getPossibleDirections(map, doors) {
         const possibilities = [
-            map[this.position[Y] - 1][this.position[X]] === FLOOR ||
-            map[this.position[Y] - 1][this.position[X]] === PLAYER,
-            map[this.position[Y] + 1][this.position[X]] === FLOOR ||
-            map[this.position[Y] + 1][this.position[X]] === PLAYER,
-            map[this.position[Y]][this.position[X] + 1] === FLOOR ||
-            map[this.position[Y]][this.position[X] + 1] === PLAYER,
-            map[this.position[Y]][this.position[X] - 1] === FLOOR ||
-            map[this.position[Y]][this.position[X] - 1] === PLAYER
+            map[this.position[Y] - 1][this.position[X]] === FLOOR && !this.game.isDoorPosition(this.position[X], this.position[Y] - 1),
+            map[this.position[Y] + 1][this.position[X]] === FLOOR && !this.game.isDoorPosition(this.position[X], this.position[Y] + 1),
+            map[this.position[Y]][this.position[X] + 1] === FLOOR && !this.game.isDoorPosition(this.position[X] + 1, this.position[Y]),
+            map[this.position[Y]][this.position[X] - 1] === FLOOR && !this.game.isDoorPosition(this.position[X] - 1, this.position[Y])
         ];
 
         let availableDirections = [];
