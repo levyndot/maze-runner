@@ -4,8 +4,24 @@ class Game {
         this.map = MAZE;
         this.player = new Player();
         this.zombie = new Zombie();
+
+        this.initialisation();
+
+        window.setInterval(() => {
+            this.moveZombie();
+        }, 500);
+        window.setInterval(() => {
+            this.drawMap();
+        }, 10);
+    }
+
+    initialisation(){
+        this.stop = false
+        this.map = MAZE;
+        this.player = new Player();
+        this.zombie = new Zombie();
         // Init player and zombie position
-        // On parcourt la map et on dessine le labyrinth
+        // On parcours la map et on dessine le labyrinth
         this.map.forEach((line, indexLine) => {
             line.forEach((cell, indexCell) => {
                 if (cell === PLAYER) {
@@ -18,6 +34,7 @@ class Game {
             });
         });
     }
+
     drawMap() {
         // On récupère la div avec l'id "maze"
         let divMaze = document.getElementById("maze");
@@ -98,6 +115,7 @@ class Game {
                 console.log("t'es mort");
                 this.stop = true;
                 alert("Game Over You Lost");
+                this.initialisation();
             }
             else if(this.map[this.player.position[Y]-1][this.player.position[X]] === DOOR) {
                 this.player.nbKey -= 1;
@@ -139,6 +157,7 @@ class Game {
                 console.log("t'es mort");
                 this.stop = true;
                 alert("Game Over You Lost");
+                this.initialisation();
             }
             else if(this.map[this.player.position[Y]+1][this.player.position[X]] === DOOR) {
                 this.player.nbKey -= 1;
@@ -183,6 +202,7 @@ class Game {
                 console.log("t'es mort");
                 this.stop = true;
                 alert("Game Over You Lost");
+                this.initialisation();
             }
             else if(this.map[this.player.position[Y]][this.player.position[X]-1] === DOOR) {
                 this.player.nbKey -= 1;
@@ -225,6 +245,7 @@ class Game {
                 console.log("t'es mort");
                 this.stop = true;
                 alert("Game Over You Lost");
+                this.initialisation();
             }
             else if(this.map[this.player.position[Y]][this.player.position[X]+1] === DOOR) {
                 this.player.nbKey -= 1;
@@ -264,6 +285,7 @@ class Game {
                         console.log("le joueur est mort");
                     this.stop = true;
                     alert("Game Over You Lost");
+                    this.initialisation();
                 }
                 else if(moveTo === LEFT && this.zombie.canGoTo(this.map, LEFT)) {
                     // On bouge le zombie a gauche
@@ -276,6 +298,7 @@ class Game {
                     console.log("le joueur est mort");
                     this.stop = true;
                     alert("Game Over You Lost");
+                    this.initialisation();
                 }
                 else if(moveTo === DOWN && this.zombie.canGoTo(this.map, DOWN)) {
                     // On bouge le zombie en bas
@@ -288,6 +311,7 @@ class Game {
                     console.log("le joueur est mort");
                     this.stop = true;
                     alert("Game Over You Lost");
+                    this.initialisation();
                 }
                 else if(moveTo === UP && this.zombie.canGoTo(this.map, UP)) {
                     // On bouge le zombie en haut
@@ -300,7 +324,8 @@ class Game {
                         console.log("le joueur est mort");
                     this.stop = true;
                     alert("Game Over You Lost");
-                    }
+                    this.initialisation();
+                }
                 }
             }
             // La case a droite du zombie devient la nouvelle position du zombie dans le labyrinth
