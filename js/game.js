@@ -1,6 +1,6 @@
 class Game {
     constructor() {
-        this.start = true
+        this.stop = false
         this.map = MAZE;
         this.player = new Player();
         this.zombie = new Zombie();
@@ -93,9 +93,11 @@ class Game {
                 document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé")
             }
+            // si le joueur touche le zombie alors la console affiche "t'es mort"
             else if(this.map[this.player.position[Y]-1][this.player.position[X]] === ZOMBIE){
                 console.log("t'es mort");
-                this.start = false;
+                this.stop = true;
+                alert("Game Over You Lost");
             }
             else if(this.map[this.player.position[Y]-1][this.player.position[X]] === DOOR) {
                 this.player.nbKey -= 1;
@@ -132,9 +134,11 @@ class Game {
                 document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé");
             }
+            // si le joueur touche le zombie alors la console affiche "t'es mort"
             else if(this.map[this.player.position[Y]+1][this.player.position[X]] === ZOMBIE){
                 console.log("t'es mort");
-                this.start = false;
+                this.stop = true;
+                alert("Game Over You Lost");
             }
             else if(this.map[this.player.position[Y]+1][this.player.position[X]] === DOOR) {
                 this.player.nbKey -= 1;
@@ -174,9 +178,11 @@ class Game {
                 document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé");
             }
+            // si le joueur touche le zombie alors la console affiche "t'es mort"
             else if(this.map[this.player.position[Y]-1][this.player.position[X]-1] === ZOMBIE){
                 console.log("t'es mort");
-                this.start = false;
+                this.stop = true;
+                alert("Game Over You Lost");
             }
             else if(this.map[this.player.position[Y]][this.player.position[X]-1] === DOOR) {
                 this.player.nbKey -= 1;
@@ -214,9 +220,11 @@ class Game {
                 document.getElementById("keysCounter").innerText = "" + this.player.nbKey;
                 console.log("bravo t'as la clé");
             }
+            // si le joueur touche le zombie alors la console affiche "t'es mort"
             else if(this.map[this.player.position[Y]][this.player.position[X]+1] === ZOMBIE){
                 console.log("t'es mort");
-                this.start = false;
+                this.stop = true;
+                alert("Game Over You Lost");
             }
             else if(this.map[this.player.position[Y]][this.player.position[X]+1] === DOOR) {
                 this.player.nbKey -= 1;
@@ -245,32 +253,57 @@ class Game {
 
                 // La case actuelle du zombie devient un sol
                 this.map[this.zombie.position[Y]][this.zombie.position[X]] = FLOOR;
-
                 if(moveTo === RIGHT && this.zombie.canGoTo(this.map, RIGHT)) {
                     // On bouge le zombie a droite
                     this.zombie.moveRight();
                     this.zombie.forbidenDirection = LEFT;
                     moved = true;
-                } else if(moveTo === LEFT && this.zombie.canGoTo(this.map, LEFT)) {
+                }
+                // si le zombie touche le joueur alors la console affiche "le joueur est mort"
+                else if(this.map[this.zombie.position[Y]][this.zombie.position[X]+ 1] === PLAYER){
+                        console.log("le joueur est mort");
+                    this.stop = true;
+                    alert("Game Over You Lost");
+                }
+                else if(moveTo === LEFT && this.zombie.canGoTo(this.map, LEFT)) {
                     // On bouge le zombie a gauche
                     this.zombie.moveLeft();
                     this.zombie.forbidenDirection = RIGHT;
                     moved = true;
-                } else if(moveTo === DOWN && this.zombie.canGoTo(this.map, DOWN)) {
+                }
+                // si le zombie touche le joueur alors la console affiche "le joueur est mort"
+                else if(this.map[this.zombie.position[Y]][this.zombie.position[X]- 1] === PLAYER){
+                    console.log("le joueur est mort");
+                    this.stop = true;
+                    alert("Game Over You Lost");
+                }
+                else if(moveTo === DOWN && this.zombie.canGoTo(this.map, DOWN)) {
                     // On bouge le zombie en bas
                     this.zombie.moveDown();
                     this.zombie.forbidenDirection = UP;
                     moved = true;
-                } else if(moveTo === UP && this.zombie.canGoTo(this.map, UP)) {
+                }
+                // si le zombie touche le joueur alors la console affiche "le joueur est mort"
+                else if(this.map[this.zombie.position[Y]+ 1][this.zombie.position[X]] === PLAYER){
+                    console.log("le joueur est mort");
+                    this.stop = true;
+                    alert("Game Over You Lost");
+                }
+                else if(moveTo === UP && this.zombie.canGoTo(this.map, UP)) {
                     // On bouge le zombie en haut
                     this.zombie.moveUp();
                     this.zombie.forbidenDirection = DOWN;
-                    moved = true;
+                    moved = true
+                }
+                // si le zombie touche le joueur alors la console affiche "le joueur est mort"
+                else if(this.map[this.zombie.position[Y]- 1][this.zombie.position[X]] === PLAYER){
+                        console.log("le joueur est mort");
+                    this.stop = true;
+                    alert("Game Over You Lost");
+                    }
                 }
             }
-
             // La case a droite du zombie devient la nouvelle position du zombie dans le labyrinth
             this.map[this.zombie.position[Y]][this.zombie.position[X]] = ZOMBIE;
         }
-    }
 }

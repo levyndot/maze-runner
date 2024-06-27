@@ -35,5 +35,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 500);
     window.setInterval(function(){
         game.drawMap();
-    }, 10);
+        }, 10);
 });
