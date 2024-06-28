@@ -1,6 +1,7 @@
 class Game {
     constructor() {
         this.initialisation();
+
     }
 
     initialisation(){
@@ -15,6 +16,9 @@ class Game {
             [11, 8],
             [17, 8],
         ];
+        this.finishPoint = [
+            19,1
+        ]
         this.player = new Player();
         this.zombie = new Zombie(this);
 
@@ -34,7 +38,10 @@ class Game {
         window.clearInterval(this.drawMapInterval);
         window.clearInterval(this.moveZombieInterval);
     }
-
+    finish(){
+        window.clearInterval(this.drawMapInterval);
+        window.clearInterval(this.moveZombieInterval);
+    }
     drawMap() {
         // On récupère la div avec l'id "maze"
         let divMaze = document.getElementById("maze");
@@ -55,11 +62,14 @@ class Game {
                     // On ajoute la classe "player-xxxx" pour que le dessin du joueur soit bien orienté
                     if (this.player.direction[X] === 1) {
                         divCell.classList.add("player-right");
-                    } else if (this.player.direction[X] === -1) {
+                    }
+                     else if (this.player.direction[X] === -1) {
                         divCell.classList.add("player-left");
-                    } else if (this.player.direction[Y] === 1) {
+                    }
+                     else if (this.player.direction[Y] === 1) {
                         divCell.classList.add("player-up");
-                    } else if (this.player.direction[Y] === -1) {
+                    }
+                     else if (this.player.direction[Y] === -1) {
                         divCell.classList.add("player-down");
                     }
                 } else if(this.zombie.position[X] === cellIndex && this.zombie.position[Y] === lineIndex) {
@@ -68,23 +78,28 @@ class Game {
                     if (this.zombie.direction === 1) {
                         // On ajoute la classe "zombie-right" a la div pour que le zombie soit de côté droite
                         divCell.classList.add("zombie-right");
-                    } else if (this.zombie.direction === 0) {
+                    }
+                    else if (this.zombie.direction === 0) {
                         // On ajoute la classe "zombie-right" a la div pour que le zombie soit de côté droite
                         divCell.classList.add("zombie-left");
                     }
-                } else if (this.isDoorPosition(cellIndex, lineIndex)) {
+                }
+                else if (this.isDoorPosition(cellIndex, lineIndex)) {
                     // On ajoute la classe "door" a la div pour afficher la porte a l'écran
                     divCell.classList.add("door");
                 } else if (this.isKeyPosition(cellIndex, lineIndex)) {
                     // On ajoute la classe "key" a la div pour afficher la clé a l'écran
                     divCell.classList.add("key");
-                } else if (cell === FLOOR) {
+                }else if(this.finishPoint[X] === cellIndex && this.finishPoint[Y] === lineIndex){
+                    divCell.classList.add("finish");
+                }else if (cell === FLOOR) {
                     // On ajoute la classe "floor" a la div pour afficher le sol a l'écran
                     divCell.classList.add("floor");
                 } else if (cell === WALL) {
                     // On ajoute la classe "wall" a la div pour afficher le mur a l'écran
                     divCell.classList.add("wall");
                 }
+
                 // On ajoute la div case a la div ligne
                 divLine.appendChild(divCell);
             });
@@ -159,15 +174,13 @@ class Game {
             console.log("t'es mort");
             this.gameOver();
             document.getElementById("gameover").classList.remove("invisible");
-            // this.initialisation();
         }
     }
 
-
-
     movePlayer(direction) {
         // Si la case en haut du joueur n'est pas un MUR OU une PORTE
-        if (this.map[this.player.position[Y] + direction[Y]][this.player.position[X] + direction[X]] === FLOOR) {
+        if (this.map[this.player.position[Y] + direction[Y]][this.player.position[X] + direction[X]] === FLOOR)
+        {
             if(!this.isDoorPosition(this.player.position[X] + direction[X], this.player.position[Y] + direction[Y]) ||
                 (this.isDoorPosition(this.player.position[X] + direction[X], this.player.position[Y] + direction[Y]) && this.player.nbKey > 0)) {
                 console.log("La voie est libre");
@@ -192,10 +205,20 @@ class Game {
                     this.openDoor(this.player.position[X], this.player.position[Y]);
                 }
             }
-
+            this.checkFinish();
             this.checkPlayerAndZombieCollision();
         } else {
             console.log("Bam le mur !!");
+        }
+    }
+
+    checkFinish() {
+        if(this.player.position[X] === this.finishPoint[X] && this.player.position[Y] === this.finishPoint[Y]) {
+            // si le joueur touche le zombie alors la console affiche "t'es mort"
+            console.log("t'as fini");
+            this.finish();
+            alert("Bravo champion t'as fini");
+            this.initialisation();
         }
     }
 
